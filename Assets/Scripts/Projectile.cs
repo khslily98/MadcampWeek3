@@ -8,6 +8,10 @@ public class Projectile : MonoBehaviour
     float speed = 10;
     float damage = 1;
     
+    private void Start() {
+        GameObject.Destroy(gameObject, 3.0f);
+    }
+
     public void SetSpeed(float newSpeed) {
         speed = newSpeed;
     }
