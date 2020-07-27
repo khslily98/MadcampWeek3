@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     public float GroundDistance = 0.2f;
     public float DashDistance = 5f;
     public LayerMask Ground;
-
     private Rigidbody _body;
     private Vector3 _inputs = Vector3.zero;
     private bool _isGrounded = true;

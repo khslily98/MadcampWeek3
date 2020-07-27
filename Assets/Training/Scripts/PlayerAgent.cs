@@ -26,6 +26,7 @@ public class PlayerAgent : Agent
 
         transform.localPosition = new Vector3(Random.value * 16f - 8f, 2f, Random.value * 16f - 8f);
 
+        if(currentTarget != null) currentTarget.Die();
         currentTarget = Instantiate(target);
         currentTarget.transform.SetParent(transform.parent);
 
@@ -104,7 +105,7 @@ public class PlayerAgent : Agent
 		}
 
         // Check episode
-        if(currentTarget == null && currentTarget.dead){
+        if(currentTarget.dead){
             SetReward(1.0f);
             EndEpisode();
         }
@@ -121,7 +122,7 @@ public class PlayerAgent : Agent
             EndEpisode();
         }
 
-        SetReward(reward);
+        SetReward(reward-0.002f);
     }
 
 
