@@ -74,10 +74,10 @@ public class Player : MonoBehaviour, IDamageable
         case "DeathTrigger":
             Die();
             break;
+
         case "Car":
             Die();
             break;
-            
         }
     }
 }
