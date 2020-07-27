@@ -8,6 +8,9 @@ TagManager:
   - target
   - arena
   - DeathTrigger
+  - Apple
+  - Candy
+  - Duck
   layers:
   - Default
   - TransparentFX

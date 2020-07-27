@@ -6,7 +6,8 @@ public class ShotController : MonoBehaviour
 {
     public Transform muzzle;
     public Projectile startingProjectile;
-    public float msBetweenShots = 100;
+    public Projectile appleProjectile;
+    public float msBetweenShots = 500;
     public float muzzleVelocity = 35;
     Projectile equippedProjectile;
     float nextShotTime = 0;
@@ -28,4 +29,54 @@ public class ShotController : MonoBehaviour
         }
         
     }
+
+    void OnTriggerEnter (Collider collidedObject)
+    {
+    switch (collidedObject.tag) 
+        {
+        case "Candy":
+            Debug.Log("사탕과 충돌");
+            float first = msBetweenShots;
+            msBetweenShots = 300;
+
+            // float timer = 0f;
+            // float waitingTime = 1f;
+
+            // while (timer>10f){
+            //     timer += Time.deltaTime;
+
+            // }
+            // Debug.Log("사탕과 충돌 1000f");
+
+            
+
+            // if ( timer >= waitingTime) 
+            // {
+            //     Debug.Log("사탕과 충돌 1000f");
+            //     msBetweenShots = first;
+            // }
+
+            break;
+
+        case "Apple":
+        Debug.Log("사과와 충돌");
+           EquipProjectile(appleProjectile);
+            break;
+        }
+
+
+    }
+
+    // void eatCandyreset()
+    // {
+    //     Debug.Log("사탕과 충돌");
+    //     msBetweenShots = msBetweenShots/2;
+    // }
+
+    // void eatApple()
+    // {
+    //     Debug.Log("사과와 충돌");
+    //     EquipProjectile(appleProjectile);
+    // }
+
 }

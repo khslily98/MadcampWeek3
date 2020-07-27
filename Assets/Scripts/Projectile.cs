@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     public LayerMask collisionMask;
     float speed = 10;
-    float damage = 1;
+    public float damage = 1;
     
     private void Start() {
         GameObject.Destroy(gameObject, 3.0f);
@@ -39,4 +39,5 @@ public class Projectile : MonoBehaviour
         }
         GameObject.Destroy(gameObject);
     }
+
 }

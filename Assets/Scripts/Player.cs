@@ -39,13 +39,12 @@ public class Player : LivingEntity
         case "DeathTrigger":
             Die();
             break;
+
         case "Car":
             Die();
             break;
-            
         }
     }
-
 }
 
 
