@@ -12,7 +12,6 @@ public class Player : LivingEntity
     private bool groundedPlayer;
     public float playerSpeed = 2.0f;
     private float jumpHeight = 1.0f;
-    private float gravityValue = -9.81f;
     private KeyCode[] shotKey = {KeyCode.Z, KeyCode.Slash};
     public int playerIndex;
 

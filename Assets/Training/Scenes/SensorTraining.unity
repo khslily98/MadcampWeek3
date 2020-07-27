@@ -2181,7 +2181,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5022602860645237092, guid: 2485deb12dee54e499391624d5fad418,
+        type: 3}
     - target: {fileID: 1028686922576649687, guid: b551167ca2188614287016c9789b4599,
         type: 3}
       propertyPath: m_UseChildSensors
