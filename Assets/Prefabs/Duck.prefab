@@ -111,6 +111,7 @@ MonoBehaviour:
   startingHealth: 10
   playerSpeed: 5
   playerIndex: 1
+  collidedObject: {fileID: 0}
 --- !u!114 &391985103466855531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +220,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 82d0b33fd2ad44744aa557711150e99e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b248a46820e9883499f9354fff9c402e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82d0b33fd2ad44744aa557711150e99e, type: 3}
 --- !u!4 &391985103065831737 stripped

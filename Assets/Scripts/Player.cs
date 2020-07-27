@@ -14,6 +14,7 @@ public class Player : LivingEntity
     private float jumpHeight = 1.0f;
     private KeyCode[] shotKey = {KeyCode.Z, KeyCode.Slash};
     public int playerIndex;
+    public Collider collidedObject;
 
     protected override void Start()  
     {
@@ -31,4 +32,20 @@ public class Player : LivingEntity
 		}
     }
 
+    void OnCollisionEnter3D (Collider collidedObject)
+    {
+    switch (collidedObject.tag) 
+        {
+        case "DeathTrigger":
+            Die();
+            break;
+        case "Car":
+            Die();
+            break;
+            
+        }
+    }
+
 }
+
+
