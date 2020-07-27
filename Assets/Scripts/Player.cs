@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 [RequireComponent (typeof (PlayerController))]
 [RequireComponent (typeof (ShotController))]
-public class Player : LivingEntity
+public class Player : MonoBehaviour, IDamageable
 {
     private PlayerController controller;
     private ShotController shotController;
@@ -18,14 +18,20 @@ public class Player : LivingEntity
     public Collider collidedObject;
 
     private HealthBarController healthBar;
+    public float startingHealth = 10f;
+	protected float health;
+    public event System.Action OnDeath;
+    public Transform spawnArea;
 
-    protected override void Start()  
+    void Start()
     {
-        base.Start();
         controller = gameObject.GetComponent<PlayerController>();
         shotController = gameObject.GetComponent<ShotController>();
+
         healthBar = GameObject.Find(string.Format("Health Bar {0}", playerIndex)).GetComponent<HealthBarController>();
         healthBar.SetMaxHP(startingHealth);
+
+        Respawn();
     }
 
     void Update()
@@ -40,11 +46,27 @@ public class Player : LivingEntity
         healthBar.SetHP(health);
     }
 
-    protected override void Die()
+    public void TakeHit(float damage, RaycastHit hit) {
+		health -= damage;
+		if (health <= 0) {
+			Die();
+		}
+	}
+
+    protected void Die()
     {
-        healthBar.SetHP(0);
-        base.Die();
+        if(OnDeath != null){
+            OnDeath();
+        }
+        Respawn();
     }
+
+    private void Respawn()
+    {
+        health = startingHealth;
+        transform.position = spawnArea.position;
+    }
+
     void OnCollisionEnter3D (Collider collidedObject)
     {
     switch (collidedObject.tag) 
@@ -58,7 +80,6 @@ public class Player : LivingEntity
             
         }
     }
-
 }
 
 
