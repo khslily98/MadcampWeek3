@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent (typeof (PlayerController))]
 [RequireComponent (typeof (ShotController))]
@@ -15,11 +16,15 @@ public class Player : LivingEntity
     private KeyCode[] shotKey = {KeyCode.Z, KeyCode.Slash};
     public int playerIndex;
 
+    private HealthBarController healthBar;
+
     protected override void Start()  
     {
         base.Start();
         controller = gameObject.GetComponent<PlayerController>();
         shotController = gameObject.GetComponent<ShotController>();
+        healthBar = GameObject.Find(string.Format("Health Bar {0}", playerIndex)).GetComponent<HealthBarController>();
+        healthBar.SetMaxHP(startingHealth);
     }
 
     void Update()
@@ -29,6 +34,14 @@ public class Player : LivingEntity
         if (Input.GetKey(shotKey[playerIndex-1])) {
 			shotController.Shoot();
 		}
+
+        //Health Bar Update
+        healthBar.SetHP(health);
     }
 
+    protected override void Die()
+    {
+        healthBar.SetHP(0);
+        base.Die();
+    }
 }
