@@ -15,6 +15,7 @@ public class Player : LivingEntity
     private float jumpHeight = 1.0f;
     private KeyCode[] shotKey = {KeyCode.Z, KeyCode.Slash};
     public int playerIndex;
+    public Collider collidedObject;
 
     private HealthBarController healthBar;
 
@@ -44,4 +45,20 @@ public class Player : LivingEntity
         healthBar.SetHP(0);
         base.Die();
     }
+    void OnCollisionEnter3D (Collider collidedObject)
+    {
+    switch (collidedObject.tag) 
+        {
+        case "DeathTrigger":
+            Die();
+            break;
+        case "Car":
+            Die();
+            break;
+            
+        }
+    }
+
 }
+
+

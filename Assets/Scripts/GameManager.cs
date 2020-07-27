@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     private Player player2;
     
     void Start() {
-        // Set camera;
+        // Set camera
         if(Values.GameMode == 1) {
             // 1P Mode
         } else {
