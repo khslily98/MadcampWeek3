@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,17 +33,13 @@ public class GameManager : MonoBehaviour
 
             player1.OnDeath += OnPlayer1Death;
             player2.OnDeath += OnPlayer2Death;
-        }
-    }
-    void Start() {
-        if(Values.GameMode == 1) {
-            // 1P Mode
-        } else {
-            // 2P Mode
+
+            isGameover = false;
         }
     }
 
     void OnPlayer1Death() {
+        if(isGameover) return;
         player1Lives -= 1;
         switch (player1Lives) {
             case 2:
@@ -53,12 +50,13 @@ public class GameManager : MonoBehaviour
                 break;
             case 0:
                 egg11.gameObject.SetActive(false);
-                GameOver(1);
+                GameOver(2);
                 break;
         }
     }
 
-        void OnPlayer2Death() {
+    void OnPlayer2Death() {
+        if(isGameover) return;
         player2Lives -= 1;
         switch (player2Lives) {
             case 2:
@@ -69,13 +67,35 @@ public class GameManager : MonoBehaviour
                 break;
             case 0:
                 egg21.gameObject.SetActive(false);
-                GameOver(2);
+                GameOver(1);
                 break;
         }
     }
 
+    public Image fadePlane;
+    public GameObject gameOverUI;
+    public Text gameOverText;
+    IEnumerator Fade(Color from, Color to, float time) {
+		float speed = 1 / time;
+		float percent = 0;
 
-    void GameOver(int loser) {
+		while (percent < 0.5) {
+			percent += Time.deltaTime * speed;
+			fadePlane.color = Color.Lerp(from,to,percent);
+			yield return null;
+		}
+	}
 
+    void GameOver(int winner) {
+        isGameover = true;
+        StartCoroutine(Fade(Color.clear, Color.black, 1));
+        gameOverText.text = string.Format("Player {0} wins!", winner);
+        gameOverUI.SetActive(true);
+        
+    }
+
+    public void GoToMain() {
+        Debug.Log("GoToMain");
+        SceneManager.LoadScene(0);
     }
 }
