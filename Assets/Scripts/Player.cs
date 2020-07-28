@@ -67,15 +67,18 @@ public class Player : MonoBehaviour, IDamageable
         transform.position = spawnArea.position;
     }
 
-    void OnCollisionEnter3D (Collider collidedObject)
+    void OnTriggerEnter (Collider collidedObject)
     {
+    Debug.Log("Collision?");
     switch (collidedObject.tag) 
         {
         case "DeathTrigger":
+            Debug.Log("Death Trigger");
             Die();
             break;
 
         case "Car":
+            Debug.Log("Car");
             Die();
             break;
         }

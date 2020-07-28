@@ -2216,7 +2216,8 @@ PrefabInstance:
       propertyPath: spawnArea
       value: 
       objectReference: {fileID: 2072835336}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 391985103466855534, guid: e7badec2478040f45afd567627614748, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e7badec2478040f45afd567627614748, type: 3}
 --- !u!1001 &514656432
 PrefabInstance:
@@ -2945,6 +2946,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 854441664}
   m_CullTransparentMesh: 0
+--- !u!1 &868648901 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 391985103466855505, guid: e7badec2478040f45afd567627614748,
+    type: 3}
+  m_PrefabInstance: {fileID: 510526321}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &868648902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868648901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed4edf62a9f3ff44a625b8e1abbabaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 10000
+  target: {fileID: 0}
+  playerIndex: 1
+  Speed: 5
+  JumpHeight: 2
+  GroundDistance: 1.5
+  Ground:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &868648907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868648901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 1
+    VectorActionSize: 01000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  TeamId: 0
+  m_UseChildSensors: 1
 --- !u!1001 &882938469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4239,7 +4294,9 @@ PrefabInstance:
       propertyPath: spawnArea
       value: 
       objectReference: {fileID: 216737648}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 391985103466855534, guid: e7badec2478040f45afd567627614748, type: 3}
+    - {fileID: 391985103466855530, guid: e7badec2478040f45afd567627614748, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e7badec2478040f45afd567627614748, type: 3}
 --- !u!1 &1287741347
 GameObject:
@@ -5259,6 +5316,60 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 71e7cb600453b0a4791c471c86dcb60a, type: 3}
+--- !u!1 &1496348570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 391985103466855505, guid: e7badec2478040f45afd567627614748,
+    type: 3}
+  m_PrefabInstance: {fileID: 1273261671}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1496348571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496348570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed4edf62a9f3ff44a625b8e1abbabaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 10000
+  target: {fileID: 0}
+  playerIndex: 1
+  Speed: 5
+  JumpHeight: 2
+  GroundDistance: 1.5
+  Ground:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &1496348573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496348570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 1
+    VectorActionSize: 01000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  TeamId: 0
+  m_UseChildSensors: 1
 --- !u!1 &1508599213
 GameObject:
   m_ObjectHideFlags: 0
