@@ -20,7 +20,9 @@ public class Player : MonoBehaviour, IDamageable
     public float startingHealth = 10f;
 	protected float health;
     public event System.Action OnDeath;
+    public event System.Action OnHit;
     public Transform spawnArea;
+    public Rigidbody rBody;
 
     void Start()
     {
@@ -31,7 +33,7 @@ public class Player : MonoBehaviour, IDamageable
             healthBar.SetMaxHP(startingHealth);
         }
         shotController = gameObject.GetComponent<ShotController>();
-
+        rBody = GetComponent<Rigidbody>();
         Respawn();
     }
 
@@ -48,7 +50,10 @@ public class Player : MonoBehaviour, IDamageable
     }
 
     public void TakeHit(float damage, RaycastHit hit) {
-		health -= damage;
+		if(OnHit != null) {
+            OnHit();
+        }
+        health -= damage;
 		if (health <= 0) {
 			Die();
 		}

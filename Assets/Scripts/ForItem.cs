@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class ForItem : MonoBehaviour
 {
+    float timerforitem;
+    float MAX = 10f;
 
     void Start()
     {
-               gameObject.transform.localPosition 
-       = new Vector3(Random.Range(-21.0f, 26.0f), 
+        timerforitem = 0;
+        gameObject.transform.localPosition 
+            = new Vector3(Random.Range(-21.0f, 26.0f), 
        -5f, Random.Range(-5.0f, -40.0f));
     }
 
-    void update()
+    void Update()
     {
+        timerforitem += Time.deltaTime;
+        if (timerforitem >= MAX)
+        {
+            timerforitem = 0f;
+            gameObject.transform.localPosition 
+                = new Vector3(Random.Range(-21.0f, 26.0f), 
+            -5f, Random.Range(-5.0f, -40.0f));
+            
+        }
 
     }
 

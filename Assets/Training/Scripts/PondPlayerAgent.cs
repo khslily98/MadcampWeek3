@@ -13,8 +13,13 @@ public class PondPlayerAgent : Agent
         rBody = GetComponent<Rigidbody>();
         shotController = gameObject.GetComponent<ShotController>();
         _groundChecker = transform.GetChild(0);
+        me.OnHit += OnMeHit;
+        opponent.OnHit += OnOpponentHit;
+        shotController.OnItemEat += OnItemEat;
+
     }
     public Player me, opponent;
+    public Transform item1, item2;
     
     public override void OnEpisodeBegin()
     {
@@ -25,14 +30,16 @@ public class PondPlayerAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         // Target and Agent positions
-        // if(currentTarget.dead){
-        //     Debug.Log("Already Dead");
-        //     sensor.AddObservation(new Vector3(0, 0, 0));
-        // }else{
-        //     sensor.AddObservation(currentTarget.transform.localPosition);
-        // }
-        // sensor.AddObservation(this.transform.localPosition);
+        sensor.AddObservation(me.rBody.transform.localPosition);
+        sensor.AddObservation(me.rBody.velocity);
+        sensor.AddObservation(me.rBody.transform.forward);
 
+        sensor.AddObservation(opponent.rBody.transform.localPosition);
+        sensor.AddObservation(opponent.rBody.velocity);
+        sensor.AddObservation(opponent.rBody.transform.forward);
+        
+        sensor.AddObservation(item1.transform.localPosition);
+        sensor.AddObservation(item2.transform.localPosition);
         // // Agent velocity
         // sensor.AddObservation(rBody.velocity);
         // sensor.AddObservation(rBody.transform.forward);
@@ -69,14 +76,15 @@ public class PondPlayerAgent : Agent
 
         rBody.MovePosition(rBody.position + _inputs * Speed * Time.deltaTime);
 
-        // if ( (jumpPrev == 0 && jumpRaw == 1 ) && _isGrounded)
-        // {
-        //     rBody.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
-        // }
-        // jumpPrev = jumpRaw;
+        if ( (jumpPrev == 0 && jumpRaw == 1 ) && _isGrounded)
+        {
+            rBody.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+        }
+        jumpPrev = jumpRaw;
 
         if (shootRaw == 1) {
             shotController.Shoot();
+            AddReward(0.0001f);
 		}
 
         // Check episode
@@ -92,7 +100,7 @@ public class PondPlayerAgent : Agent
         //     EndEpisode();
         // }
 
-        // SetReward(reward-0.005f);
+        AddReward(-0.0001f);
     }
 
     // private void OnCollisionEnter(Collision other) {
@@ -128,5 +136,17 @@ public class PondPlayerAgent : Agent
         actionsOut[1] = Input.GetAxisRaw(verticalAxis[playerIndex-1])+1;
         actionsOut[2] = Input.GetButton(jumpButton[playerIndex-1])?1:0;
         actionsOut[3] = Input.GetKey(shotKey[playerIndex-1])?1:0;
+    }
+
+    void OnOpponentHit(){
+        AddReward(1f);
+    }
+
+    void OnMeHit() {
+        AddReward(-0.1f);
+    }
+
+    void OnItemEat() {
+        AddReward(0.05f);
     }
 }

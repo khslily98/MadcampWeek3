@@ -14,6 +14,7 @@ public class ShotController : MonoBehaviour
 
     float timerforitem = 0;
     float MAX = 10f;
+    public event System.Action OnItemEat;
 
     void Start() {
         if(startingProjectile != null ) {
@@ -41,6 +42,7 @@ public class ShotController : MonoBehaviour
     {
         eatCandy(false);
         eatApple(false);
+        
     }
 
 
@@ -51,10 +53,16 @@ public class ShotController : MonoBehaviour
     switch (collidedObject.tag) 
         {
         case "Candy":
+            if(OnItemEat != null){
+                OnItemEat();
+            }
             eatCandy(true);
             break;
 
         case "Apple":
+            if(OnItemEat != null){
+                OnItemEat();
+            }
             eatApple(true);
             break;
         }
