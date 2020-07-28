@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent (typeof (PlayerController))]
 [RequireComponent (typeof (ShotController))]
 public class Player : MonoBehaviour, IDamageable
 {
+    public bool trainingMode = false;
     private PlayerController controller;
     private ShotController shotController;
     private Vector3 playerVelocity;
@@ -15,7 +15,6 @@ public class Player : MonoBehaviour, IDamageable
     private float jumpHeight = 1.0f;
     private KeyCode[] shotKey = {KeyCode.Z, KeyCode.Slash};
     public int playerIndex;
-    public Collider collidedObject;
 
     private HealthBarController healthBar;
     public float startingHealth = 10f;
@@ -25,25 +24,27 @@ public class Player : MonoBehaviour, IDamageable
 
     void Start()
     {
-        controller = gameObject.GetComponent<PlayerController>();
+        if(!trainingMode){
+            controller = gameObject.GetComponent<PlayerController>();
+            
+            healthBar = GameObject.Find(string.Format("Health Bar {0}", playerIndex)).GetComponent<HealthBarController>();
+            healthBar.SetMaxHP(startingHealth);
+        }
         shotController = gameObject.GetComponent<ShotController>();
-
-        healthBar = GameObject.Find(string.Format("Health Bar {0}", playerIndex)).GetComponent<HealthBarController>();
-        healthBar.SetMaxHP(startingHealth);
 
         Respawn();
     }
 
     void Update()
     {
-        
-        //Weapon Control
-        if (Input.GetKey(shotKey[playerIndex-1])) {
-			shotController.Shoot();
+        if(!trainingMode){
+            if (Input.GetKey(shotKey[playerIndex-1])) {
+			    shotController.Shoot();
+            }
+            
+            //Health Bar Update
+            healthBar.SetHP(health);
 		}
-
-        //Health Bar Update
-        healthBar.SetHP(health);
     }
 
     public void TakeHit(float damage, RaycastHit hit) {

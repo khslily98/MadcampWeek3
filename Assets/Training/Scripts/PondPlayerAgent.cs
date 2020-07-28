@@ -14,14 +14,11 @@ public class PondPlayerAgent : Agent
         shotController = gameObject.GetComponent<ShotController>();
         _groundChecker = transform.GetChild(0);
     }
-
-    public Target target;
-    private Target currentTarget;
+    public Player me, opponent;
+    
     public override void OnEpisodeBegin()
     {
         //Debug.Log("Episode Begins");
-
-        transform.localPosition = new Vector3(Random.Range(-21.0f, 26.0f),-5f, Random.Range(-5.0f, -40.0f));
 
     }
 
@@ -53,17 +50,15 @@ public class PondPlayerAgent : Agent
     private string[] verticalAxis = {"Vertical1", "Vertical2"};
     private string[] jumpButton = {"Jump1", "Jump2"};
     private KeyCode[] shotKey = {KeyCode.Z, KeyCode.Slash};
-    private int horizontalRaw;
-    private int verticalRaw;
+    private int horizontalRaw, verticalRaw, jumpRaw, shootRaw;
     private int jumpPrev = 0;
     public override void OnActionReceived(float[] act)
     {   
-        float reward = 0;
         // Make action
         horizontalRaw = Mathf.FloorToInt(act[0]) - 1;
         verticalRaw = Mathf.FloorToInt(act[1]) - 1;
-        int jumpRaw = Mathf.FloorToInt(act[2]);
-        int shootRaw = Mathf.FloorToInt(act[3]);
+        jumpRaw = Mathf.FloorToInt(act[2]);
+        shootRaw = Mathf.FloorToInt(act[3]);
         
         _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
 
@@ -81,24 +76,23 @@ public class PondPlayerAgent : Agent
         // jumpPrev = jumpRaw;
 
         if (shootRaw == 1) {
-            reward += 0.0001f;
             shotController.Shoot();
 		}
 
         // Check episode
-        if(currentTarget.dead){
-            SetReward(1.0f);
-            EndEpisode();
-        }
+        // if(currentTarget.dead){
+        //     SetReward(1.0f);
+        //     EndEpisode();
+        // }
 
-        if (this.transform.localPosition.y < 0 || this.transform.localPosition.y > 8)
-        {
-            currentTarget.Die();
-            SetReward(-1.0f);
-            EndEpisode();
-        }
+        // if (this.transform.localPosition.y < 0 || this.transform.localPosition.y > 8)
+        // {
+        //     currentTarget.Die();
+        //     SetReward(-1.0f);
+        //     EndEpisode();
+        // }
 
-        SetReward(reward-0.005f);
+        // SetReward(reward-0.005f);
     }
 
     // private void OnCollisionEnter(Collision other) {
