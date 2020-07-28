@@ -14,11 +14,11 @@ public class moveCar : MonoBehaviour
 
     void Start()
     {
-        pos = transform.position;
-        currentPosition = transform.position.x;
-        currentPosition_y = transform.position.y;
-        currentPosition_z = transform.position.z;
-        transform.position = new Vector3(currentPosition, 0, currentPosition_z);
+        pos = transform.localPosition;
+        currentPosition = transform.localPosition.x;
+        currentPosition_y = transform.localPosition.y;
+        currentPosition_z = transform.localPosition.z;
+        transform.localPosition = new Vector3(currentPosition, 0, currentPosition_z);
     }
 
 
@@ -40,7 +40,7 @@ public class moveCar : MonoBehaviour
         currentPosition = MIN;
     }
 
-    transform.position = new Vector3(currentPosition, currentPosition_y, currentPosition_z);
+    transform.localPosition = new Vector3(currentPosition, currentPosition_y, currentPosition_z);
 
     }
 
