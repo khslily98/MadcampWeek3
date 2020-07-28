@@ -12,7 +12,7 @@ public class ForItem : MonoBehaviour
        -5f, Random.Range(-5.0f, -40.0f));
     }
 
-    void update()
+    void Update()
     {
 
     }

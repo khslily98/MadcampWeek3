@@ -10,9 +10,9 @@ public class ShotController : MonoBehaviour
     public float msBetweenShots = 500;
     public float muzzleVelocity = 35;
     Projectile equippedProjectile;
-    float nextShotTime = 0;
-
-    float timerforitem = 0;
+    
+    float nextShotTime = 0f;
+    float timerforitem = 0f;
     float MAX = 10f;
 
     void Start() {

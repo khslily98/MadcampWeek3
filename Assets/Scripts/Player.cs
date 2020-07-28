@@ -10,11 +10,14 @@ public class Player : LivingEntity
     private ShotController shotController;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    public float playerSpeed = 2.0f;
+    public float playerSpeed = 5.0f;
     private float jumpHeight = 1.0f;
     private KeyCode[] shotKey = {KeyCode.Z, KeyCode.Slash};
     public int playerIndex;
     public Collider collidedObject;
+
+    float timerforitem = 0f;
+    float MAX = 10f;
 
     protected override void Start()  
     {
@@ -25,6 +28,12 @@ public class Player : LivingEntity
 
     void Update()
     {
+        timerforitem = timerforitem + Time.deltaTime;
+        
+        if (timerforitem >= MAX)
+        {
+            eatGrape(false);
+        }
         
         //Weapon Control
         if (Input.GetKey(shotKey[playerIndex-1])) {
@@ -43,6 +52,32 @@ public class Player : LivingEntity
         case "Car":
             Die();
             break;
+        }
+    }
+
+    void OnTriggerEnter (Collider collidedObject)
+    {
+    switch (collidedObject.tag) 
+        {
+        case "Grape":
+            eatGrape(true);
+            break;
+        }
+
+    }
+
+    void eatGrape(bool boolen)
+    {
+        if (boolen == true)
+        {
+            Debug.Log("포도와 충돌");
+            playerSpeed = 15f;
+            timerforitem = 0;
+        }
+
+        else
+        {
+            playerSpeed = 5f;
         }
     }
 }
