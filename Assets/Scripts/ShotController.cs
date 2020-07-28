@@ -12,6 +12,9 @@ public class ShotController : MonoBehaviour
     Projectile equippedProjectile;
     float nextShotTime = 0;
 
+    float timerforitem = 0;
+    float MAX = 10f;
+
     void Start() {
         if(startingProjectile != null ) {
             EquipProjectile(startingProjectile);
@@ -30,53 +33,66 @@ public class ShotController : MonoBehaviour
         
     }
 
+    void Update()
+    {
+     timerforitem = timerforitem + Time.deltaTime;
+    
+    if (timerforitem >= MAX)
+    {
+        eatCandy(false);
+        eatApple(false);
+    }
+
+
+    }
+
     void OnTriggerEnter (Collider collidedObject)
     {
     switch (collidedObject.tag) 
         {
         case "Candy":
-            Debug.Log("사탕과 충돌");
-            float first = msBetweenShots;
-            msBetweenShots = 300;
-
-            // float timer = 0f;
-            // float waitingTime = 1f;
-
-            // while (timer>10f){
-            //     timer += Time.deltaTime;
-
-            // }
-            // Debug.Log("사탕과 충돌 1000f");
-
-            
-
-            // if ( timer >= waitingTime) 
-            // {
-            //     Debug.Log("사탕과 충돌 1000f");
-            //     msBetweenShots = first;
-            // }
-
+            eatCandy(true);
             break;
 
         case "Apple":
-        Debug.Log("사과와 충돌");
-           EquipProjectile(appleProjectile);
+            eatApple(true);
             break;
         }
 
 
     }
 
-    // void eatCandyreset()
-    // {
-    //     Debug.Log("사탕과 충돌");
-    //     msBetweenShots = msBetweenShots/2;
-    // }
+    void eatCandy(bool boolen)
+    {
+        float first;
 
-    // void eatApple()
-    // {
-    //     Debug.Log("사과와 충돌");
-    //     EquipProjectile(appleProjectile);
-    // }
+        if (boolen == true)
+        {
+            Debug.Log("사탕과 충돌");
+            first = msBetweenShots;
+            msBetweenShots = 300;
+            timerforitem = 0;
+        }
+
+        else
+        {
+            msBetweenShots = 500;
+        }
+    }
+
+    void eatApple(bool boolen)
+    {
+        if (boolen == true)
+        {
+            Debug.Log("사과와 충돌");
+            EquipProjectile(appleProjectile);
+            timerforitem = 0;
+        }
+
+        else
+        {
+            EquipProjectile(startingProjectile);
+        }
+    }
 
 }
