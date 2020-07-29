@@ -22,8 +22,10 @@ public class FieldManager : MonoBehaviour
         agent1.SetReward(-1.0f);
         //agent2.SetReward(1.0f);
 
-        agent1.EndEpisode();
-        agent2.EndEpisode();
+        agent1.End();
+        agent2.End();
+        
+        player2.GetComponent<Player>().Respawn();
     }
 
     void OnPlayer2Death() {
@@ -32,8 +34,10 @@ public class FieldManager : MonoBehaviour
         //agent1.SetReward(1.0f);
         agent2.SetReward(-1.0f);
 
-        agent1.EndEpisode();
-        agent2.EndEpisode();
+        agent1.End();
+        agent2.End();
+
+        player1.GetComponent<Player>().Respawn();
     }
 
     // 총쏘면 +0.0001 총맞추면 +1 총맞으면 -0.01 숨만쉬면 -0.0001 아이템 먹으면 +0.05

@@ -24,7 +24,7 @@ public class PondPlayerAgent : Agent
     public override void OnEpisodeBegin()
     {
         //Debug.Log("Episode Begins");
-
+        prevDist = -1f;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -40,6 +40,7 @@ public class PondPlayerAgent : Agent
         
         sensor.AddObservation(item1.transform.localPosition);
         sensor.AddObservation(item2.transform.localPosition);
+
         // // Agent velocity
         // sensor.AddObservation(rBody.velocity);
         // sensor.AddObservation(rBody.transform.forward);
@@ -76,6 +77,7 @@ public class PondPlayerAgent : Agent
 
         rBody.MovePosition(rBody.position + _inputs * Speed * Time.deltaTime);
 
+        if(jumpRaw == 1) AddReward(-0.05f);
         if ( (jumpPrev == 0 && jumpRaw == 1 ) && _isGrounded)
         {
             rBody.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
@@ -100,7 +102,7 @@ public class PondPlayerAgent : Agent
         //     EndEpisode();
         // }
 
-        AddReward(-0.0001f);
+        //AddReward(getDistScore());
     }
 
     // private void OnCollisionEnter(Collision other) {
@@ -139,6 +141,7 @@ public class PondPlayerAgent : Agent
     }
 
     void OnOpponentHit(){
+        Debug.Log("Hit!");
         AddReward(1f);
     }
 
@@ -147,6 +150,29 @@ public class PondPlayerAgent : Agent
     }
 
     void OnItemEat() {
-        AddReward(0.05f);
+        AddReward(1f);
+    }
+
+    public void End() {
+        EndEpisode();
+    }
+
+    private float prevDist = -1f;
+    float getDistScore() {
+        Vector3 v1 = me.rBody.transform.localPosition;
+        Vector3 v2 = opponent.rBody.transform.localPosition;
+        float curDist = Mathf.Sqrt((v1.x - v2.x)*(v1.x - v2.x) + (v1.z - v2.z)*(v1.z - v2.z))/65f;
+        if(prevDist == -1f){
+            prevDist = curDist;
+            return 0;
+        }
+
+        if(curDist<0.4)    return 0.5f;
+        
+        else    return -0.5f;
+
+        // float score = prevDist - curDist;
+        // prevDist = curDist;
+        // return score/10f;
     }
 }

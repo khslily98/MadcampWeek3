@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PondGame.unity
     guid: 42de0d9922ad00e4b8026fd3ed0caeae
+  - enabled: 1
+    path: Assets/Scenes/AIPondGame.unity
+    guid: c01b34adf7085f64aa796976ddc78e05
   m_configObjects: {}

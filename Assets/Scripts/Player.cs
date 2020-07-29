@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour, IDamageable
 {
     public bool trainingMode = false;
+    public bool isAI = false;
     private PlayerController controller;
     private ShotController shotController;
     private Vector3 playerVelocity;
@@ -27,7 +28,7 @@ public class Player : MonoBehaviour, IDamageable
     void Start()
     {
         if(!trainingMode){
-            controller = gameObject.GetComponent<PlayerController>();
+            if(!isAI) controller = gameObject.GetComponent<PlayerController>();
             
             healthBar = GameObject.Find(string.Format("Health Bar {0}", playerIndex)).GetComponent<HealthBarController>();
             healthBar.SetMaxHP(startingHealth);
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour, IDamageable
     void Update()
     {
         if(!trainingMode){
-            if (Input.GetKey(shotKey[playerIndex-1])) {
+            if (!isAI && Input.GetKey(shotKey[playerIndex-1])) {
 			    shotController.Shoot();
             }
             
@@ -67,7 +68,7 @@ public class Player : MonoBehaviour, IDamageable
         Respawn();
     }
 
-    private void Respawn()
+    public void Respawn()
     {
         health = startingHealth;
         transform.position = spawnArea.position;

@@ -23,6 +23,10 @@ PrefabInstance:
       propertyPath: playerIndex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 868648902, guid: 02c0f1c0b1ce47e41a65fdcd26f8f800, type: 3}
+      propertyPath: JumpHeight
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1018245208508107268, guid: 02c0f1c0b1ce47e41a65fdcd26f8f800,
         type: 3}
       propertyPath: m_DetectableTags.Array.size
@@ -211,7 +215,7 @@ PrefabInstance:
     - target: {fileID: 7196722236622358944, guid: 02c0f1c0b1ce47e41a65fdcd26f8f800,
         type: 3}
       propertyPath: m_Name
-      value: Duck 1
+      value: SensorDuckFinal
       objectReference: {fileID: 0}
     - target: {fileID: 7196722237026169064, guid: 02c0f1c0b1ce47e41a65fdcd26f8f800,
         type: 3}
